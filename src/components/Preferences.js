@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Timer from './Timer'
 import Bell from '../audioClip/boxingBell.mp3'
 import Champions from '../audioClip/champions.mp3'
-import {Howl} from "howler"
+import {Howl, Howler} from "howler"
 
 const boxingSound = new Howl({
     src: [Bell]
@@ -10,6 +10,8 @@ const boxingSound = new Howl({
 const championsSound = new Howl({
     src: [Champions]
 })
+
+Howler.volume(0.05)
 
 export class Preferences extends Component {
     state = { 
