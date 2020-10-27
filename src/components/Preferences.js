@@ -17,7 +17,7 @@ export class Preferences extends Component {
     state = { 
     workout: [
         {
-        rounds: 1,
+        rounds: 0,
         workMin: "00",
         workSec: "00",
         restMin: "00",
@@ -33,7 +33,7 @@ export class Preferences extends Component {
     seconds: "00",
     periods: 0,
     roundsCompleted: 0,
-    noWorkoutSaved: true
+    workoutSaved: false
     }
     
     //Timer Handlers
@@ -42,13 +42,14 @@ export class Preferences extends Component {
     }
 
     workRestHandler = (periodChangeType) => {
-        if (!(this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) || ((this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) &&periodChangeType === "previous")){  
-            if (this.state.noWorkoutSaved === false){
+        if (!(this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) || (periodChangeType === "previous" && this.state.periods !== 0)){
+            if (this.state.workoutSaved === true){
+                console.log("working")
                 if (periodChangeType === "next") {
                     this.setState(prevState => ({
                         periods: prevState.periods ++
                     }))
-                } else {
+                } else if (periodChangeType === "previous") {
                     this.setState(prevState => ({
                         periods: prevState.periods --
                     }))
@@ -62,7 +63,8 @@ export class Preferences extends Component {
                     boxingSound.play()
                 } 
             }        
-        } else {
+        } else if (this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)){
+            console.log("champion")
             this.setState(prevState => ({
                 isRunning: false,
                 previousTime: 0,
@@ -155,16 +157,18 @@ export class Preferences extends Component {
     restMinSelect = React.createRef()
     restSecSelect = React.createRef()
 
+
+    // User Saving Their Workout
     saveWorkoutInfo = () => {
         championsSound.stop()
-        if ((this.workMinSelect.current.value !== "00" || this.workSecSelect.current.value !== "00") && (this.restMinSelect.current.value !== "00" || this.restSecSelect.current.value !== "00")){
+        if ((this.workMinSelect.current.value !== "00" || this.workSecSelect.current.value !== "00") && (this.restMinSelect.current.value !== "00" || this.restSecSelect.current.value !== "00") && this.roundSelect.current.value !== "00"){
             let rounds = this.roundSelect.current.value
             if (rounds[0] === "0"){
                 rounds = rounds[1]
             }
             this.setState({
                 workoutFinished: false,
-                noWorkoutSaved: false,
+                workoutSaved: true,
                 isRunning: false,
                 elapsedTime: 0,
                 previousTime: 0,
@@ -190,7 +194,8 @@ export class Preferences extends Component {
             <div style={{textAlign: 'center', background: 'lightgrey', paddingBottom: '0px', borderRadius: "0px 0px 5px 5px"}}>
                 <h3>Total Rounds (Work+Rest)</h3>
                 <select ref={this.roundSelect} >
-                    <option value="01">01</option>
+                    <option>00</option>
+                    <option>01</option>
                     <option>02</option>
                     <option>03</option>
                     <option>04</option>
@@ -257,6 +262,7 @@ export class Preferences extends Component {
                 periods = {this.state.periods}
                 roundsCompleted = {this.state.roundsCompleted}
                 workoutFinished = {this.state.workoutFinished}
+                workoutSaved = {this.state.workoutSaved}
                 />
             </div>
         )
