@@ -32,7 +32,8 @@ export class Preferences extends Component {
     minutes: "00",
     seconds: "00",
     periods: 0,
-    roundsCompleted: 0
+    roundsCompleted: 0,
+    noWorkoutSaved: true
     }
     
     //Timer Handlers
@@ -41,26 +42,24 @@ export class Preferences extends Component {
     }
 
     workRestHandler = (periodChangeType) => {
-        if (!(this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) || ((this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) &&periodChangeType === "previous")){
-            if (!(this.state.workout[0].workMin === "00" && this.state.workout[0].workSec === "00" && this.state.workout[0].restMin === "00" && this.state.workout[0].restSec === "00")){
-                if (periodChangeType === "next") {
-                    this.setState(prevState => ({
-                        periods: prevState.periods ++
-                    }))
-                } else {
-                    this.setState(prevState => ({
-                        periods: prevState.periods --
-                    }))
-                }
+        if (!(this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) || ((this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) &&periodChangeType === "previous") && this.state.noWorkoutSaved === false){          
+            if (periodChangeType === "next") {
                 this.setState(prevState => ({
-                    isRest: !prevState.isRest,
-                    elapsedTime: 0,
-                    roundsCompleted: Math.floor(prevState.periods/2)
+                    periods: prevState.periods ++
                 }))
-                if (this.state.isRunning){
-                    boxingSound.play()
-                }
+            } else {
+                this.setState(prevState => ({
+                    periods: prevState.periods --
+                }))
             }
+            this.setState(prevState => ({
+                isRest: !prevState.isRest,
+                elapsedTime: 0,
+                roundsCompleted: Math.floor(prevState.periods/2)
+            }))
+            if (this.state.isRunning){
+                boxingSound.play()
+            } 
         } else {
             this.setState(prevState => ({
                 isRunning: false,
@@ -163,6 +162,7 @@ export class Preferences extends Component {
             }
             this.setState({
                 workoutFinished: false,
+                noWorkoutSaved: false,
                 isRunning: false,
                 elapsedTime: 0,
                 previousTime: 0,
