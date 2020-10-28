@@ -26,34 +26,36 @@ export class Preferences extends Component {
     ],
     isRunning: false,
     workoutFinished: false,
+    isRest: false,
+    workoutSaved: false,
+    saveError: false,
     elapsedTime: 0,
     previousTime: 0,
-    isRest: false,
     minutes: "00",
     seconds: "00",
     periods: 0,
-    roundsCompleted: 0,
-    workoutSaved: false
+    roundsCompleted: 0
     }
     
     //Timer Handlers
     componentDidMount() {
         this.intervalID = setInterval(() => this.tick(), 100)
     }
-
+    
     workRestHandler = (periodChangeType) => {
+        console.log(this.state.periods, this.state.roundsCompleted)
         if (!(this.state.isRest === true && this.state.periods === ((this.state.workout[0].rounds * 2) - 1)) || (periodChangeType === "previous" && this.state.periods !== 0)){
             if (this.state.workoutSaved === true){
-                console.log("working")
                 if (periodChangeType === "next") {
-                    this.setState(prevState => ({
-                        periods: prevState.periods ++
-                    }))
+                    this.setState({
+                        periods: this.state.periods + 1
+                    })
                 } else if (periodChangeType === "previous") {
-                    this.setState(prevState => ({
-                        periods: prevState.periods --
-                    }))
+                    this.setState({
+                        periods: this.state.periods - 1
+                    })
                 }
+                console.log(this.state.periods)
                 this.setState(prevState => ({
                     isRest: !prevState.isRest,
                     elapsedTime: 0,
@@ -170,6 +172,7 @@ export class Preferences extends Component {
                 workoutFinished: false,
                 workoutSaved: true,
                 isRunning: false,
+                saveError: false,
                 elapsedTime: 0,
                 previousTime: 0,
                 isRest: false,
@@ -186,12 +189,16 @@ export class Preferences extends Component {
                     return workout   
                 })
             })
+        } else{
+            this.setState({
+                saveError: true
+            })
         }
     } 
 
     render() {
         return (
-            <div style={{textAlign: 'center', background: 'lightgrey', paddingBottom: '0px', borderRadius: "0px 0px 5px 5px"}}>
+            <div style={{textAlign: 'center', background: 'lightgrey', paddingTop: "20px", paddingBottom: '0px', borderRadius: "0px 0px 5px 5px"}}>
                 <h3>Total Rounds (Work+Rest)</h3>
                 <select ref={this.roundSelect} >
                     <option>00</option>
@@ -247,6 +254,7 @@ export class Preferences extends Component {
                         <option>45</option>
                     </select>
                     <button style={{display:"block", margin: "0px auto", marginTop: "20px"}} onClick={this.saveWorkoutInfo}>Save/Update</button>
+                    <h4 id="save_error" style={{color: this.state.saveError ? "red" : "lightgrey"}}>*Must Select All Workout Preferences*</h4>
                 </div>  
                 <Timer 
                 workout = {this.state.workout}

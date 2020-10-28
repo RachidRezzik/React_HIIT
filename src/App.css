@@ -46,3 +46,8 @@ button{
   outline: none;
   padding: 3px 8px;
 }
+
+#save_error{
+  font-size: 15px;
+  margin-top: 7.5px;
+}
