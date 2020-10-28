@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/React_HIIT/static/css/main.c8934db5.chunk.css",
-    "main.js": "/React_HIIT/static/js/main.dc11fe67.chunk.js",
-    "main.js.map": "/React_HIIT/static/js/main.dc11fe67.chunk.js.map",
+    "main.css": "/React_HIIT/static/css/main.f0ef9474.chunk.css",
+    "main.js": "/React_HIIT/static/js/main.4a300807.chunk.js",
+    "main.js.map": "/React_HIIT/static/js/main.4a300807.chunk.js.map",
     "runtime-main.js": "/React_HIIT/static/js/runtime-main.86d64ac0.js",
     "runtime-main.js.map": "/React_HIIT/static/js/runtime-main.86d64ac0.js.map",
     "static/js/2.7346dcda.chunk.js": "/React_HIIT/static/js/2.7346dcda.chunk.js",
     "static/js/2.7346dcda.chunk.js.map": "/React_HIIT/static/js/2.7346dcda.chunk.js.map",
     "index.html": "/React_HIIT/index.html",
-    "precache-manifest.a83e8c553c2b3644cd90e6ab55fd9543.js": "/React_HIIT/precache-manifest.a83e8c553c2b3644cd90e6ab55fd9543.js",
+    "precache-manifest.a86372fb0fcb3e593f57e5eaf1f48ecf.js": "/React_HIIT/precache-manifest.a86372fb0fcb3e593f57e5eaf1f48ecf.js",
     "service-worker.js": "/React_HIIT/service-worker.js",
-    "static/css/main.c8934db5.chunk.css.map": "/React_HIIT/static/css/main.c8934db5.chunk.css.map",
+    "static/css/main.f0ef9474.chunk.css.map": "/React_HIIT/static/css/main.f0ef9474.chunk.css.map",
     "static/js/2.7346dcda.chunk.js.LICENSE.txt": "/React_HIIT/static/js/2.7346dcda.chunk.js.LICENSE.txt",
     "static/media/boxingBell.mp3": "/React_HIIT/static/media/boxingBell.fbed6af8.mp3",
     "static/media/champions.mp3": "/React_HIIT/static/media/champions.3e4af462.mp3"
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.86d64ac0.js",
     "static/js/2.7346dcda.chunk.js",
-    "static/css/main.c8934db5.chunk.css",
-    "static/js/main.dc11fe67.chunk.js"
+    "static/css/main.f0ef9474.chunk.css",
+    "static/js/main.4a300807.chunk.js"
   ]
 }
